@@ -22,7 +22,11 @@ export default function ResonanceList({ entries, onDeleteEntry, loading = false 
   };
 
   const handleDelete = async (id: string) => {
-    setDeletingIds(prev => new Set([...prev, id]));
+    setDeletingIds(prev => {
+      const newSet = new Set(prev);
+      newSet.add(id);
+      return newSet;
+    });
     const success = await onDeleteEntry(id);
     if (!success) {
       setDeletingIds(prev => {
